@@ -18,8 +18,11 @@ public class PaymentController {
         return ResponseEntity.ok(paymentService.processPayment(payment));
     }
 
+
+
     @GetMapping("/{id}")
     public ResponseEntity<Payment> getPayment(@PathVariable Long id) {
         return ResponseEntity.ok(paymentService.getPayment(id));
+
     }
 }

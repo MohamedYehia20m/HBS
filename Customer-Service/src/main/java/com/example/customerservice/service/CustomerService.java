@@ -1,6 +1,5 @@
 package com.example.customerservice.service;
 
-import com.example.bookingservice.model.Booking;
 import com.example.customerservice.model.Customer;
 import com.example.customerservice.repository.CustomerRepository;
 import lombok.RequiredArgsConstructor;
