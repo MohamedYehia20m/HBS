@@ -13,13 +13,13 @@ public class CustomerController {
 
     private final CustomerService customerService;
 
-    @PostMapping("/register")
+    @PostMapping()
     public ResponseEntity<Customer> registerCustomer(@RequestBody Customer customer) {
         return ResponseEntity.ok(customerService.registerCustomer(customer));
     }
 
-    @PostMapping("/login")
-    public ResponseEntity<String> login(@RequestBody Customer customer) {
-        return ResponseEntity.ok(customerService.login(customer));
+    @GetMapping("/{id}")
+    public ResponseEntity<Customer> getCustomer(@PathVariable Long id) {
+        return ResponseEntity.ok(customerService.getCustomer(id));
     }
 }

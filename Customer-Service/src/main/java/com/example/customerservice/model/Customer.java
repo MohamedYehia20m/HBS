@@ -1,8 +1,11 @@
 package com.example.customerservice.model;
 
 import jakarta.persistence.*;
+import lombok.*;
 
+@Data
 @Entity
+@Table(name = "customers")
 public class Customer {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -12,5 +15,4 @@ public class Customer {
     private String email;
     private String password;
 
-    // Getters and Setters
 }

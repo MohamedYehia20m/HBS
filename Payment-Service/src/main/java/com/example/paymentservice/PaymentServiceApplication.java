@@ -1,13 +1,13 @@
-package com.example.hbs;
+package com.example.paymentservice;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class HbsApplication {
+public class PaymentServiceApplication {
 
     public static void main(String[] args) {
-        SpringApplication.run(HbsApplication.class, args);
+        SpringApplication.run(PaymentServiceApplication.class, args);
     }
 
 }

@@ -1,0 +1,80 @@
+version: '3.8'
+
+services:
+  # API Gateway
+  api-gateway:
+    build: ./api-gateway  # Path to your API Gateway Dockerfile
+    ports:
+      - "9695:9695"
+    environment:
+      - SPRING_APPLICATION_NAME=api-gateway
+    depends_on:
+      - booking-service
+      - customer-service
+      - payment-service
+
+  # Booking Service
+  booking-service:
+    build: ./booking-service  # Path to your Booking Service Dockerfile
+    ports:
+      - "9696:9696"
+    environment:
+      - SERVER_PORT=9696
+      - SPRING_APPLICATION_NAME=booking-service
+    depends_on:
+      - mysql
+#      - rabbitmq
+
+  # Customer Service
+  customer-service:
+    build: ./customer-service  # Path to your Customer Service Dockerfile
+    ports:
+      - "9697:9697"
+    environment:
+      - SERVER_PORT=9697
+      - SPRING_APPLICATION_NAME=customer-service
+    depends_on:
+      - mysql
+
+  # Payment Service
+  payment-service:
+    build: ./payment-service  # Path to your Payment Service Dockerfile
+    ports:
+      - "9698:9698"
+    environment:
+      - SERVER_PORT=9698
+      - SPRING_APPLICATION_NAME=payment-service
+    depends_on:
+      - mysql
+#      - rabbitmq
+
+  # MySQL Database (if used)
+  mysql:
+    image: mysql:8.0
+    environment:
+      - MYSQL_ROOT_PASSWORD=root
+      - MYSQL_DATABASE=amazon
+    ports:
+      - "3306:3306"
+    volumes:
+      - mysql_data:/var/lib/mysql
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost"]
+      interval: 5s
+      timeout: 10s
+      retries: 10
+#
+#  # RabbitMQ (for messaging)
+#  rabbitmq:
+#    image: rabbitmq:3-management
+#    ports:
+#      - "5672:5672"  # AMQP port
+#      - "15672:15672"  # Management UI port
+#    healthcheck:
+#      test: ["CMD", "rabbitmq-diagnostics", "ping"]
+#      interval: 10s
+#      timeout: 5s
+#      retries: 10
+
+volumes:
+  mysql_data:
